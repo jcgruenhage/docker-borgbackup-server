@@ -4,7 +4,7 @@ It takes in requires config file in json format, that is used to generate the au
 
 ### Volumes
 This container has three volumes:
- - ```/backup/config```, which should contain a file called ```hosts.json```, that contains the hosts allowed to connect to this server. For an example, look at the repo of the generation go script at https://git.jcg.re/jcgruenhage/borg-gen-auth-keys. Please note, that the folder variable in the beginning must be set to the next volume:
+ - ```/backup/config```, which should contain a file called ```hosts.json```, that contains the hosts allowed to connect to this server. For an example, look at the repo of the generation go script at https://git.jcg.re/jcgruenhage/borgocli. Please note, that the folder variable in the beginning must be set to the next volume:
  - ```/backup/storage```, where the actual backups will be located in.
  - ```/backup/keys```, where the host keys of the ssh daemon will be stored, so that replacing the container won't make it untrusted, because of changing keys.
 
