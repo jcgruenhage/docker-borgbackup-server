@@ -22,12 +22,12 @@ RUN	apk add --update \
 	&& mkdir -p /backup/config \
 	&& mkdir -p /backup/storage \
 	&& mkdir -p /home/borg \
-	&& go get git.jcg.re/jcgruenhage/borg-gen-auth-keys.git \
+	&& go get git.jcg.re/jcgruenhage/borgocli \
 	&& apk del --purge \
 		go \
 		build-base \
 		git \
-	&& mv $GOPATH/bin/borg-gen-auth-keys.git /usr/local/bin/borg-gen-auth-keys \
+	&& mv $GOPATH/bin/borgocli /usr/local/bin/borgocli \
 	&& rm -rf \
 		/tmp \
 		/var/cache/apk/* \
