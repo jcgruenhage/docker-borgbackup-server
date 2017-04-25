@@ -18,13 +18,15 @@ function writeAuthKeys {
 
 function writeHostKeys {
 	#Write existing host keys to /etc/ssh
-	for f in /backup/keys/ssh_host_*; do
+	cd /backup/keys/
+	for f in ssh_host_*; do
 		cp -f $f /etc/ssh/
 	done
 	#Generate missing host keys
 	ssh-keygen -A
 	#Copy host keys to volume
-	for f in /etc/keys/ssh_host_*; do
+	cd /etc/ssh/
+	for f in ssh_host_*; do
 		cp -f $f /backup/keys/
 	done
 }
