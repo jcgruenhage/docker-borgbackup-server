@@ -9,7 +9,12 @@ function updateIDs {
 function writeAuthKeys {
 	mkdir -p /home/borg/.ssh/
 	cd /home/borg/.ssh/
+
+	#Generate the authorized keys file
 	borgocli generate authorized_keys /backup/config/hosts.json > authorized_keys
+	#Create the folder structure
+	borgocli generate folders /backup/config/hosts.json
+
 	chown -R borg:borg .
 	chmod 700 .
 	chmod 700 ..
@@ -22,8 +27,10 @@ function writeHostKeys {
 	for f in ssh_host_*; do
 		cp -f $f /etc/ssh/
 	done
+
 	#Generate missing host keys
 	ssh-keygen -A
+
 	#Copy host keys to volume
 	cd /etc/ssh/
 	for f in ssh_host_*; do
