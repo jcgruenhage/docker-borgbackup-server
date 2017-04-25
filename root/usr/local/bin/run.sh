@@ -9,14 +9,27 @@ function updateIDs {
 function writeAuthKeys {
 	mkdir -p /home/borg/.ssh/
 	cd /home/borg/.ssh/
-	borg-gen-auth-keys /backup/config/hosts.json > authorized_keys
+	borgocli generate authorized_keys /backup/config/hosts.json > authorized_keys
 	chown -R borg:borg .
 	chmod 700 .
 	chmod 700 ..
 	chmod 600 authorized_keys
 }
 
+function writeHostKeys {
+	#Write existing host keys to /etc/ssh
+	for f in /backup/keys/ssh_host_*; do
+		cp -f $f /etc/ssh/
+	done
+	#Generate missing host keys
+	ssh-keygen -A
+	#Copy host keys to volume
+	for f in /etc/keys/ssh_host_*; do
+		cp -f $f /backup/keys/
+	done
+}
+
 updateIDs
 writeAuthKeys
-ssh-keygen -A
+writeHostKeys
 exec /bin/s6-svscan /etc/s6.d
