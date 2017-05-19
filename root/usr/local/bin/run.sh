@@ -41,4 +41,4 @@ function writeHostKeys {
 updateIDs
 writeAuthKeys
 writeHostKeys
-exec /bin/s6-svscan /etc/s6.d
+su-exec /bin/s6-svscan /etc/s6.d
